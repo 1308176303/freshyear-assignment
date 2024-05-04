@@ -10,5 +10,20 @@
         <file>img/img_bg_level_5.jpg</file>
         <file>img/img_bg_logo.jpg</file>
         <file>img/MyPlane1.fw.png</file>
+        <file>img/startBtn.fw.png</file>
+        <file>img/ui_new_word_png_1714048894014.png</file>
+        <file>img/bulletEnemy1.fw.png</file>
+        <file>img/bulletPlane.fw.png</file>
+        <file>img/img_bullet_1714048883843.png</file>
+        <file>img/img_plane_enemy_1714048889111.png</file>
+        <file>img/img_plane_main_1714048889095.png</file>
+        <file>img/enemy1.fw.png</file>
+    </qresource>
+    <qresource prefix="/sound">
+        <file>music/enemy_down.wav</file>
+        <file>music/starwars.mp3</file>
+        <file>music/weapon_enemy.wav</file>
+        <file>music/weapon_player.wav</file>
+        <file>music/zhongbaozha.wav</file>
     </qresource>
 </RCC>
