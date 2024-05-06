@@ -1,9 +1,9 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-#include "gameobjectpool.h"
+#include "gameobject.h"
 
-class Bullet : public GameObjectPool
+class Bullet : public GameObject
 {
 public:
     //子弹类型
@@ -18,7 +18,7 @@ public:
     //移动
     void BulletMove(QPoint _dir=QPoint(0,-1));
 
-
+    void Init(QPoint _pos,QPixmap _pixmap);
 
     ~Bullet()
     {

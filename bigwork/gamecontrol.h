@@ -7,7 +7,7 @@
 class GameControl:public QObject
 {
     //单例
-    GameControl();
+    GameControl(QWidget*parent = nullptr);
     static GameControl* instance;
 public:
     //获取单例
@@ -15,15 +15,13 @@ public:
     {
         if(instance==nullptr)
         {
-            return instance =new GameControl();
+            return instance =new GameControl(Widget::widget);
         }
+        return instance;
     }
     ~GameControl()
     {
-        if(instance !=nullptr)
-            delete instance;
-
-        instance=nullptr;
+        qDebug()<<"游戏控制释放";
     }
     //游戏初始化
     void GameInit();
@@ -75,9 +73,6 @@ protected:
 
     QList<Bullet*> mBulletList;//子弹容器
     QList<Enemy*> mEnemylist;//敌人的容器
-
-    //背景音乐
-    QMediaPlayer* mMediaBG= new QMediaPlayer;
 };
 
 #endif // GAMECONTROL_H

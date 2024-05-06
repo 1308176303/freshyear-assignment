@@ -12,6 +12,8 @@
 #include"bullet.h"
 #include"player.h"
 #include<QRandomGenerator>
+#include"playerbullet.h"
+#include"enemybullet.h"
 
 //游戏定义类  定义游戏相关属性
 class GameDefine
@@ -20,7 +22,7 @@ public:
     GameDefine();
     static const int PlaneShootUpdateTime = 600;
     static const int PlayerMoveUpdateTime = 20;
-    static const int EnemyMoveUpdateTime = 20;
+    static const int EnemyMoveUpdateTime = 40;
     static const int BulletMoveUpdateTime = 10;
     static const int BackgroundUpdateTime = 50;
     static const int EnemyCreateTime = 500;

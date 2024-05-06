@@ -11,22 +11,28 @@ CONFIG += c++17
 SOURCES += \
     bullet.cpp \
     enemy.cpp \
+    enemybullet.cpp \
     gamecontrol.cpp \
     gamedefine.cpp \
+    gameobject.cpp \
     gameobjectpool.cpp \
     main.cpp \
     plane.cpp \
     player.cpp \
+    playerbullet.cpp \
     widget.cpp
 
 HEADERS += \
     bullet.h \
     enemy.h \
+    enemybullet.h \
     gamecontrol.h \
     gamedefine.h \
+    gameobject.h \
     gameobjectpool.h \
     plane.h \
     player.h \
+    playerbullet.h \
     widget.h
 
 FORMS += \

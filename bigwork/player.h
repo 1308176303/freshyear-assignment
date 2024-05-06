@@ -8,8 +8,6 @@ class Player : public Plane
 {
 public:
     Player();
-
-
 };
 
 #endif // PLAYER_H

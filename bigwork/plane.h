@@ -1,9 +1,9 @@
 #ifndef PLANE_H
 #define PLANE_H
 
-#include "gameobjectpool.h"
+#include "gameobject.h"
 
-class Plane : public GameObjectPool
+class Plane : public GameObject
 {
 
 public:

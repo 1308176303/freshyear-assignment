@@ -1,9 +1,9 @@
 #include "gamecontrol.h"
 #include"gamedefine.h"
+#include"gameobjectpool.h"
 
 GameControl* GameControl::instance =nullptr;
-GameControl::GameControl() {
-    this->setParent(Widget::widget);
+GameControl::GameControl(QWidget*parent):QObject(parent) {
 }
 
 void GameControl::BGMove()
@@ -23,6 +23,8 @@ void GameControl::BGMove()
 void GameControl::GameInit()
 {
 
+    //初始化pool
+    GameObjectPool::Instance()->Init();
     //设置视图的父亲为窗口
     mGameView.setParent(Widget::widget);
 
@@ -46,6 +48,12 @@ void GameControl::GameInit()
         for(auto bullet:mBulletList)
         {
             bullet->BulletMove();
+            //越界
+            if(bullet->y()<-100)
+            {
+                bullet->GameObjectDelete(&mGameScene);
+                mBulletList.removeOne(bullet);
+            }
         }
         //碰撞检测
         Collison();
@@ -54,12 +62,13 @@ void GameControl::GameInit()
         for(auto enemy:mEnemylist)
         {
             enemy->EnemyMove();
+
+            if(enemy->y()>GameDefine::Screen1Height+enemy->pixmap().height())
+            {
+                enemy->GameObjectDelete(&mGameScene);
+                mEnemylist.removeOne(enemy);            }
         }
     });
-
-
-
-
 }
 
 void GameControl::LoadStartScene()
@@ -114,10 +123,6 @@ void GameControl::LoadGameScene()
     mGameView.setScene(&mGameScene);
     mGameView.show();
 
-    //播放音效
-    this->mMediaBG=new QMediaPlayer(this);
-    this->mMediaBG->setSource(QUrl("qrc:/sound/music/starwars.mp3"));
-    this->mMediaBG->play();
 
 }
 
@@ -175,10 +180,12 @@ void GameControl::PlaneMove()
 //我的子弹生成函数
 void GameControl::PlaneBulletShoot()
 {
-    //创造子弹
+    //pool构建bullet
     QPixmap bulletImg(":/img/img/bulletPlane.fw.png");
     QPoint pos(mPlane.x()+mPlane.pixmap().width()/2,mPlane.y());
-    Bullet* bullet=new Bullet(pos,bulletImg,Bullet::BT_Player);
+    GameObject* obj=GameObjectPool::Instance()->GetGameObject(GameObject::OT_Player);
+    PlayerBullet* bullet=(PlayerBullet*)obj;
+    bullet->Init(pos,bulletImg);
 
     //添加到场景
     mGameScene.addItem(bullet);
@@ -193,7 +200,9 @@ void GameControl::CreatEnemy()
     QPixmap pixmap(":/img/img/enemy1.fw.png");
     QRandomGenerator randomGenerator(QRandomGenerator::global()->generate()); // 初始化随机数生成器
     int randX = randomGenerator.bounded(512 - pixmap.width()); //[0, 512 - pixmap.width()]
-    Enemy *enemy = new Enemy(QPoint(randX, -200), pixmap);
+    GameObject*obj=GameObjectPool::Instance()->GetGameObject(GameObject::OT_Enemy);
+    Enemy* enemy=(Enemy*)obj;
+    enemy->Init(QPoint(randX,-200),pixmap);
 
     //添加到场景
     mGameScene.addItem(enemy);
@@ -213,7 +222,11 @@ void GameControl::Collison()
             if(mBulletList[i]->collidesWithItem(mEnemylist[j]))//碰撞检测
             {
                 //mGameScene.removeItem(mBulletList[i]);
-                mGameScene.removeItem(mEnemylist[j]);
+                //mGameScene.removeItem(mEnemylist[j]);
+
+                //移除场景回收对象
+                //mBulletList[i]->GameObjectDelete(&mGameScene);
+                mEnemylist[j]->GameObjectDelete(&mGameScene);
 
                 //移除管理器
                 //mBulletList.removeOne(mBulletList[i]);
