@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/MyPlane1.fw.png</file>
+        <file>img/startBtn.fw.png</file>
+        <file>img/bulletEnemy1.fw.png</file>
+        <file>img/bulletPlane.fw.png</file>
+        <file>img/enemy1.fw.png</file>
+        <file>img/gameover1.jpg</file>
+        <file>img/background.jpg</file>
+        <file>img/gamestart.jpg</file>
+    </qresource>
+</RCC>
